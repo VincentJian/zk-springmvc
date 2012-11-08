@@ -1,0 +1,36 @@
+<zk>
+	<window id="myWin" title="User List" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('zk.view.UserViewModel')">
+		<caption>
+			Current Logged User : ${loggedUsername}
+			<a label="Logout" href="../logout" style="color: blue; text-decoration: underline;" />
+		</caption>
+		<listbox id="listbox" model="@bind(vm.userList)" selectedItem="@bind(vm.selectedUser)">
+			<listhead>
+				<listheader label="id" />
+				<listheader label="Name" />
+				<listheader label="Gender" />
+			</listhead>
+			<template name="model">
+				<listitem>
+					<listcell label="@bind(each.id)" />
+					<listcell label="@bind(each.name)" />
+					<listcell label="@bind(each.gender)" />
+				</listitem>
+			</template>
+		</listbox>
+		<hlayout>
+			<button label="add" onClick="@command('add')" disabled="@load(not empty vm.selectedUser)" />
+			<button label="save" onClick="@command('save')" visible="@load(not empty vm.selectedUser)" />
+			<button label="delete" onClick="@command('delete')" visible="@load(not empty vm.selectedUser)" />
+		</hlayout>
+		<grid visible="@load(not empty vm.selectedUser)">
+			<rows>
+				<row>id: <label value="@load(vm.selectedUser.id)" /></row>
+				<row>name: <textbox value="@bind(vm.selectedUser.name)" /></row>
+				<row>gender: <textbox value="@bind(vm.selectedUser.gender)" /></row>
+			</rows>
+		</grid>
+	</window>
+</zk>

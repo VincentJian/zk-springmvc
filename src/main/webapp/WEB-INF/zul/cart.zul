@@ -1,0 +1,41 @@
+<zk xmlns:n="native">
+	<window apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('demo.view.zk.CartViewModel')">
+		<n:form action="confirmOrder" method="post">
+			<grid model="@bind(vm.cartList)">
+				<columns>
+					<column label="Name" />
+					<column label="Price" />
+					<column label="Quantity" />
+					<column label="Sub total" />
+					<column label="id" visible="false" />
+					<column label="prodId" visible="false" />
+					<column label="Name" visible="false" />
+					<column label="Price" visible="false" />
+					<column label="Quantity" visible="false" />
+				</columns>
+				<template name="model">
+					<row>
+						<label value="@bind(each.product.name)" />
+						<label value="@bind(each.product.price) @converter('formattedNumber', format='$ #,###,###')" />
+						<label value="@bind(each.quantity)" />
+						<label value="@bind(each.subtotal) @converter('formattedNumber', format='$ #,###,###')" />
+						<textbox name="items[${forEachStatus.index}].id" value="${forEachStatus.index}" />
+						<textbox name="items[${forEachStatus.index}].prodId" value="@bind(each.product.id)" />
+						<textbox name="items[${forEachStatus.index}].name" value="@bind(each.product.name)" />
+						<textbox name="items[${forEachStatus.index}].price" value="@bind(each.product.price)" />
+						<textbox name="items[${forEachStatus.index}].quantity" value="@bind(each.quantity)" />
+					</row>
+				</template>
+				<foot>
+					<footer span="3">Total</footer>
+					<footer>
+						<hlayout valign="middle">
+							<label value="@bind(vm.total) @converter('formattedNumber', format='$ #,###,###')" />
+							<button label="Confirm Order" type="submit" disabled="@bind(empty vm.cartList)" autodisable="self" />
+						</hlayout>
+					</footer>
+				</foot>
+			</grid>
+		</n:form>
+	</window>
+</zk>

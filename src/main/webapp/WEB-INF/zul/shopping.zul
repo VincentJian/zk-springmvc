@@ -1,0 +1,11 @@
+<?page title="Shopping Cart Sample - Purchase" ?>
+<zk>
+	<borderlayout>
+		<center title="Product List">
+			<include hflex="1" src="product.zul" />
+		</center>
+		<south size="35%" title="Shopping Cart">
+			<include hflex="1" src="cart.zul" />
+		</south>
+	</borderlayout>
+</zk>

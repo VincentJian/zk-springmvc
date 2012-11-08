@@ -1,0 +1,21 @@
+<zk>
+	<grid model="@bind(vm.productList)" vflex="1" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('demo.view.zk.ProductViewModel')">
+		<columns>
+			<column width="212px" />
+			<column label="Name" />
+			<column label="Price" />
+			<column label="Add to Cart" />
+		</columns>
+		<template name="model">
+			<row>
+				<image src="/img/noimage.png" />
+				<label value="@load(each.name)" />
+				<label value="@load(each.price) @converter('formattedNumber', format='$ #,###,###')" />
+				<cell>
+					<spinner value="@bind(each.quantity)" constraint="no negative" />
+					<button label="Add" onClick="@global-command('addCart', product=each)" />
+				</cell>
+			</row>
+		</template>
+	</grid>
+</zk>
